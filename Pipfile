@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 
 [dev-packages]
+setuptools-rust = "1.2.0"
 
 [requires]
 python_version = "3.7"

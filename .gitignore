@@ -1,3 +1,5 @@
 .idea
 .local
 target
+*.egg-info
+*.so
