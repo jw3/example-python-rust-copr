@@ -1,5 +1,5 @@
 Name:           python-rulec
-Version:        0.1.0
+Version:        0.1.2
 Release:        1%{?dist}
 Summary:        Rule compiler example project
 
@@ -11,8 +11,10 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(wheel)
 BuildRequires:  python3dist(setuptools-rust)
-BuildRequires:  python3dist(setuptools-rust)
 BuildRequires:  python3dist(tox-current-env)
+BuildRequires:  rust-pyo3+abi3-py36-devel
+
+BuildRequires:  rust-packaging
 
 %global _description %{expand:
                            Rule compiler for fapolicyd.}
@@ -31,6 +33,9 @@ touch setup.cfg
 %generate_buildrequires
 %pyproject_buildrequires
 
+%cargo_prep
+%cargo_generate_buildrequires
+
 %build
 %pyproject_wheel
 
@@ -41,8 +46,10 @@ touch setup.cfg
 
 %check
 
-%files -n python3-rulec -f %{pyproject_files}
+%files -n python3-rulec
+%{python3_sitearch}/rulec/
+%{python3_sitearch}/rulec-%{version}.dist-info/
+
 %doc README.md
-%{python3_sitelib}/rulec/
 
 %changelog
