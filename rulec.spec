@@ -1,5 +1,7 @@
+%global debug_package %{nil}
+
 Name:           python-rulec
-Version:        0.1.2
+Version:        0.2.0
 Release:        1%{?dist}
 Summary:        Rule compiler example project
 
@@ -7,7 +9,7 @@ License:        GPLv3
 URL:            https://github.com/jw3/example-python-rust-copr
 Source:         %{url}/archive/v%{version}/rulec-%{version}.tar.gz
 
-BuildArch:      noarch
+BuildArch:      x86_64
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(wheel)
 BuildRequires:  python3dist(setuptools-rust)
@@ -37,16 +39,16 @@ touch setup.cfg
 %cargo_generate_buildrequires
 
 %build
+export VERSION=%{version}
 %pyproject_wheel
 
 %install
 %pyproject_install
-
 %pyproject_save_files rulec
 
 %check
 
-%files -n python3-rulec
+%files -n python3-rulec -f %{pyproject_files}
 %{python3_sitearch}/rulec/
 %{python3_sitearch}/rulec-%{version}.dist-info/
 
