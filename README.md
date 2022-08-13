@@ -5,6 +5,10 @@ rulec
 
 Rule compiler for fapolicyd
 
+## Testing build from Podman
+
+1. `podman build --security-opt seccomp=unconfined -t rpm-test:rawhide .`
+2. `podman run --rm -it --security-opt seccomp=unconfined rpm-test:rawhide ./build.sh`
 
 ## License
 
