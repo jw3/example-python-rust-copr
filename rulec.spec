@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           python-rulec
-Version:        0.2.0
+Version:        0.2.1
 Release:        1%{?dist}
 Summary:        Rule compiler example project
 
@@ -50,8 +50,6 @@ export VERSION=%{version}
 %check
 
 %files -n python3-rulec -f %{pyproject_files}
-%{python3_sitearch}/rulec/
-%{python3_sitearch}/rulec-%{version}.dist-info/
 
 %doc README.md
 
