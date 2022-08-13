@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           python-rulec
-Version:        0.2.1
+Version:        0.3.0
 Release:        1%{?dist}
 Summary:        Rule compiler example project
 
@@ -19,6 +19,9 @@ BuildRequires:  rust-pyo3+abi3-py36-devel
 
 BuildRequires:  rust-packaging
 
+Source1: %{crates_source lmdb-rkv 0.14.0}
+Source2: %{crates_source lmdb-rkv-sys 0.11.2}
+
 %global _description %{expand:
                            Rule compiler for fapolicyd.}
 
@@ -30,7 +33,11 @@ Summary:        %{summary}
 %description -n python3-rulec %_description
 
 %prep
-touch setup.cfg
+tar xvzf %{SOURCE1} -C %{cargo_registry}
+tar xvzf %{SOURCE2} -C %{cargo_registry}
+
+for d in %{cargo_registry}/*; do echo '{"files":{},"package":""}' > "$d/.cargo-checksum.json"; done
+
 %autosetup -p1 -n example-python-rust-copr-%{version}
 
 %generate_buildrequires
