@@ -14,6 +14,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(wheel)
 BuildRequires:  python3dist(setuptools-rust)
 BuildRequires:  python3dist(tox-current-env)
+BuildRequires:  rust-pyo3+default-devel
 BuildRequires:  rust-pyo3+abi3-py36-devel
 
 BuildRequires:  rust-packaging
