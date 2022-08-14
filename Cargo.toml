@@ -3,6 +3,9 @@ name = "example-rulec"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+crate-type = ["cdylib"]
+
 [dependencies]
 pyo3 = { version="0.15", features = ["abi3-py36"] }
 ariadne = "0.1.5"
