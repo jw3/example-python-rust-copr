@@ -3,6 +3,8 @@ import requests as req
 from bs4 import BeautifulSoup
 
 rawhide_rust = "https://mirrors.kernel.org/fedora/development/rawhide/Everything/source/tree/Packages/r/"
+overridden_crates = ["paste", "indoc"]
+blacklisted_crates = ["paste-impl", "indoc-impl"]
 
 
 def required_packages():
@@ -23,7 +25,7 @@ def available_packages():
     soup = BeautifulSoup(req.get(rawhide_rust).text)
     links = soup.find_all('a')
 
-    available = {}
+    pkgs = {}
     for link in links:
         if link.text.startswith("rust-"):
             try:
@@ -32,8 +34,8 @@ def available_packages():
             except:
                 continue
 
-            available[name] = version
-    return available
+            pkgs[name] = version
+    return pkgs
 
 
 if __name__ == '__main__':
@@ -50,10 +52,18 @@ if __name__ == '__main__':
         else:
             crates[p] = f"%{{crates_source {p} {v}}}"
         # Source1: %{crates_source lmdb-rkv 0.14.0}
-        #print(f"Source{i+1}: %{{crates_source {p} {v}}}")
+        # print(f"Source{i+1}: %{{crates_source {p} {v}}}")
 
     print("BuildRequires:  rust-packaging")
     for r in rpms.values():
         print(f"BuildRequires: {r}-devel")
-    for i, c in enumerate(crates.values()):
-        print(f"Source{i + 1}: {c}")
+
+    excluded_crates = overridden_crates + blacklisted_crates
+    for i, (c, v) in enumerate(crates.items()):
+        if c not in excluded_crates:
+            print(f"Source{i + 1 }: {v}")
+
+    if overridden_crates:
+        print("# Overridden to rpms due to Fedora version patching")
+        for r in overridden_crates:
+            print(f"BuildRequires: rust-{r}-devel")
