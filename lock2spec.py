@@ -16,7 +16,6 @@ def required_packages():
             name = pkg["name"]
             if name != project_name:
                 version = pkg["version"]
-                (major, minor, patch) = version.split(".", 2)
                 required[name] = version
         return required
 
