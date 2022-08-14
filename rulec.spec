@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           python-rulec
-Version:        0.3.1
+Version:        0.3.2
 Release:        1%{?dist}
 Summary:        Rule compiler example project
 
