@@ -65,11 +65,11 @@ Summary:        %{summary}
 %description -n python3-rulec %_description
 
 %prep
-%cargo_prep
 mkdir -p %{cargo_registry}
 for c in %{_sourcedir}/*.crate; do tar xzf ${c} -C %{cargo_registry}; done
 for d in %{cargo_registry}/*; do echo '{"files":{},"package":""}' > "$d/.cargo-checksum.json"; done
 
+%cargo_prep
 %autosetup -p1 -n example-python-rust-copr-%{version}
 rm Cargo.lock
 
