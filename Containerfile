@@ -7,3 +7,5 @@ WORKDIR /root/rpmbuild
 RUN mkdir -p {BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
 COPY rulec.spec SPECS/
 COPY build.sh   ./
+
+CMD "./build.sh"

@@ -8,7 +8,7 @@ Rule compiler for fapolicyd
 ## Testing build from Podman
 
 1. `podman build --security-opt seccomp=unconfined -t rpm-test:rawhide .`
-2. `podman run --rm -it --security-opt seccomp=unconfined rpm-test:rawhide ./build.sh`
+2. `podman run --rm -it --security-opt seccomp=unconfined rpm-test:rawhide`
 
 ## References
 - https://docs.fedoraproject.org/en-US/packaging-guidelines/
