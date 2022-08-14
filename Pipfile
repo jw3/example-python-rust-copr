@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+configargparse = "1.5.3"
 
 [dev-packages]
 setuptools-rust = "1.2.0"

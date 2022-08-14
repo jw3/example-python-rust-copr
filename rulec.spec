@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           python-rulec
-Version:        0.3.2
+Version:        0.4.0
 Release:        1%{?dist}
 Summary:        Rule compiler example project
 
@@ -18,14 +18,13 @@ BuildRequires:  python3dist(tox-current-env)
 BuildRequires:  rust-packaging
 BuildRequires: rust-autocfg-devel
 BuildRequires: rust-bitflags-devel
-BuildRequires: rust-byteorder-devel
-BuildRequires: rust-cc-devel
 BuildRequires: rust-cfg-if-devel
+BuildRequires: rust-funty-devel
 BuildRequires: rust-instant-devel
+BuildRequires: rust-lexical-core-devel
 BuildRequires: rust-libc-devel
 BuildRequires: rust-lock_api-devel
 BuildRequires: rust-once_cell-devel
-BuildRequires: rust-pkg-config-devel
 BuildRequires: rust-proc-macro-hack-devel
 BuildRequires: rust-proc-macro2-devel
 BuildRequires: rust-pyo3-devel
@@ -33,21 +32,34 @@ BuildRequires: rust-pyo3-build-config-devel
 BuildRequires: rust-pyo3-macros-devel
 BuildRequires: rust-pyo3-macros-backend-devel
 BuildRequires: rust-quote-devel
+BuildRequires: rust-ryu-devel
 BuildRequires: rust-scopeguard-devel
+BuildRequires: rust-serde-devel
+BuildRequires: rust-serde_derive-devel
 BuildRequires: rust-smallvec-devel
+BuildRequires: rust-static_assertions-devel
 BuildRequires: rust-syn-devel
+BuildRequires: rust-tap-devel
+BuildRequires: rust-thiserror-devel
+BuildRequires: rust-thiserror-impl-devel
 BuildRequires: rust-unicode-ident-devel
 BuildRequires: rust-unindent-devel
+BuildRequires: rust-version_check-devel
+BuildRequires: rust-wyz-devel
 BuildRequires: rust-yansi-devel
 Source1: %{crates_source ariadne 0.1.5}
-Source4: %{crates_source lmdb-rkv 0.14.0}
-Source5: %{crates_source lmdb-rkv-sys 0.11.2}
-Source6: %{crates_source parking_lot 0.11.2}
-Source7: %{crates_source parking_lot_core 0.8.5}
-Source10: %{crates_source redox_syscall 0.2.16}
-Source11: %{crates_source winapi 0.3.9}
-Source12: %{crates_source winapi-i686-pc-windows-gnu 0.4.0}
-Source13: %{crates_source winapi-x86_64-pc-windows-gnu 0.4.0}
+Source2: %{crates_source arrayvec 0.5.2}
+Source3: %{crates_source bitvec 0.19.6}
+Source4: %{crates_source fapolicy-rules 0.4.0}
+Source7: %{crates_source memchr 2.3.4}
+Source8: %{crates_source nom 6.2.1}
+Source9: %{crates_source parking_lot 0.11.2}
+Source10: %{crates_source parking_lot_core 0.8.5}
+Source13: %{crates_source radium 0.5.3}
+Source14: %{crates_source redox_syscall 0.2.16}
+Source15: %{crates_source winapi 0.3.9}
+Source16: %{crates_source winapi-i686-pc-windows-gnu 0.4.0}
+Source17: %{crates_source winapi-x86_64-pc-windows-gnu 0.4.0}
 # Overridden to rpms due to Fedora version patching
 BuildRequires: rust-paste-devel
 BuildRequires: rust-indoc-devel
