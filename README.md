@@ -34,6 +34,17 @@ Error:
 ───╯
 ```
 
+## lock2spec.py
+
+The [lock2spec](lock2spec.py) script creates a set of dependency links for the spec file.
+
+The logic goes like this
+1. Parse all dependencies from the `Cargo.lock`
+2. Check available Fedora (rawhide) packages for availability, list available packages as `BuildRequires: `
+3. Packages not found in Fedora are SourceX using the `crates_source` macro, `SourceX: %{crates_source _}`
+4. Allow for overriding some packages to resolve discrepancies
+   - the usecase for this was where the Fedora packagers for pyo3 patched it at rpm build time, causing different dependency graph that is found in the official release of pyo3
+
 ## Testing build from Podman
 
 1. `podman build --security-opt seccomp=unconfined -t rpm-test:rawhide .`
