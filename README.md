@@ -15,15 +15,15 @@ Error:
    ╭─[sample.rules:1:1]
    │
  1 │ allow perm=any uid=0 trust=x : all
-   ·          
-   ·           Expected boolean (0, 1) value
+   ·                            ┬  
+   ·                            ╰── Expected boolean (0, 1) value
 ───╯
 Error: 
    ╭─[sample.rules:2:1]
    │
  2 │ allow perm=xany uid=1000 trust=1 : all
-   ·       
-   ·        Expected one of 'any', 'open', 'execute'
+   ·            ──┬─  
+   ·              ╰─── Expected one of 'any', 'open', 'execute'
 ───╯
 Error: 
    ╭─[sample.rules:4:1]
