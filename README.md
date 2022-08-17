@@ -10,7 +10,7 @@ This is mostly a toy project for experimenting with building Python+Rust RPMs.
 ## Sample
 
 ```text
-#! python -m rulec sample.rules 
+#! python -m rulec sample.invalid.rules 
 Error: 
    ╭─[sample.rules:1:1]
    │
@@ -58,6 +58,7 @@ The logic goes like this
 - https://pagure.io/fedora-rust/rust2rpm
   - https://pagure.io/fedora-rust/rust2rpm/blob/main/f/data
 - https://src.fedoraproject.org/rpms/pyproject-rpm-macros
+- https://mirrors.kernel.org/fedora/development/rawhide/Everything/source/tree/Packages/
 - 
 
 

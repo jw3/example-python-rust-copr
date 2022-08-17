@@ -1,4 +1,6 @@
+allow perm=any uid=foo trust=1 : all
 allow perm=any uid=0 trust=x : all
 allow perm=xany uid=1000 trust=1 : all
 allow_syslog perm=execute all : trust=1
 xdeny_syslog perm=execute all : all
+deny_syslog perm=execute all : foo
