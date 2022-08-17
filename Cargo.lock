@@ -60,9 +60,9 @@ dependencies = [
 
 [[package]]
 name = "fapolicy-rules"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c83f70a0788537c4982becea9f2f25ebddd1875e6fd8b8c025aee00bdb870df9"
+checksum = "ff7498dff5c1ac9dda5121a5bf6b117c0fa2010a41428c063164151a9140956a"
 dependencies = [
  "nom",
  "serde",

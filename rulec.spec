@@ -50,7 +50,7 @@ BuildRequires: rust-yansi-devel
 Source1: %{crates_source ariadne 0.1.5}
 Source2: %{crates_source arrayvec 0.5.2}
 Source3: %{crates_source bitvec 0.19.6}
-Source4: %{crates_source fapolicy-rules 0.4.0}
+Source4: %{crates_source fapolicy-rules 0.4.1}
 Source7: %{crates_source memchr 2.3.4}
 Source8: %{crates_source nom 6.2.1}
 Source9: %{crates_source parking_lot 0.11.2}
