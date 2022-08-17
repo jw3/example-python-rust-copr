@@ -11,3 +11,4 @@ ariadne = "0.1.5"
 pyo3 = { version="0.15", features = ["abi3-py36"] }
 fapolicy-rules = "0.4"
 nom = "6.1.0"
+thiserror = "1.0"
