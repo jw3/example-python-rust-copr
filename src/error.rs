@@ -5,7 +5,4 @@ use thiserror::Error;
 pub enum Error {
     #[error("File IO Error: {0}")]
     FileIoError(#[from] io::Error),
-
-    #[error("Invalid rules detected")]
-    RuleValidationFailed,
 }

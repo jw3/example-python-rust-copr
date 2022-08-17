@@ -6,6 +6,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+use crate::error::Error;
 use ariadne::{Report, ReportKind, Source};
 use fapolicy_rules::parser::errat::{ErrorAt, StrErrorAt};
 use fapolicy_rules::parser::parse::StrTrace;
@@ -13,7 +14,6 @@ use fapolicy_rules::parser::rule;
 use fapolicy_rules::parser::trace::Trace;
 use fapolicy_rules::Rule;
 use nom::IResult;
-use std::error::Error;
 use std::fs::File;
 use std::io;
 use std::io::{BufRead, BufReader};
@@ -31,7 +31,7 @@ enum Line<'a> {
     RuleDef(RuleParse<'a>),
 }
 
-pub fn report_for_file(path: PathBuf) -> Result<(), Box<dyn Error>> {
+pub fn report_for_file(path: PathBuf) -> Result<(), Error> {
     let filename = path.display().to_string();
     let buff = BufReader::new(File::open(path)?);
     let lines: Result<Vec<String>, io::Error> = buff.lines().collect();
@@ -87,7 +87,6 @@ pub fn report_for_file(path: PathBuf) -> Result<(), Box<dyn Error>> {
                 .unwrap();
         }
     }
-
     Ok(())
 }
 
