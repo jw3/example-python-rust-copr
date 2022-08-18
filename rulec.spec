@@ -73,14 +73,15 @@ Summary:        %{summary}
 %description -n python3-rulec %_description
 
 %prep
-REG_DIR=%{buildroot}%{cargo_registry}
-%{__mkdir} -p ${REG_DIR}
-for c in %{_sourcedir}/*.crate; do %{__tar} xzf ${c} -C ${REG_DIR}; done
-for d in ${REG_DIR}/*; do echo '{"files":{},"package":""}' > "$d/.cargo-checksum.json"; done
-for d in %{cargo_registry}/*; do ln -s ${d} ${REG_DIR}; done
+CARGO_REG_DIR=%{buildroot}%{cargo_registry}
+%{__mkdir} -p ${CARGO_REG_DIR}
+for c in %{_sourcedir}/*.crate; do %{__tar} xzf ${c} -C ${CARGO_REG_DIR}; done
+ls -al ${CARGO_REG_DIR}
+for d in ${CARGO_REG_DIR}/*; do echo '{"files":{},"package":""}' > "$d/.cargo-checksum.json"; done
+for d in %{cargo_registry}/*; do ln -s ${d} ${CARGO_REG_DIR}; done
 
 %cargo_prep
-sed -i "s#%{cargo_registry}#${REG_DIR}#g" .cargo/config
+sed -i "s#%{cargo_registry}#${CARGO_REG_DIR}#g" .cargo/config
 
 %autosetup -p1 -n example-python-rust-copr-%{version}
 rm Cargo.lock
