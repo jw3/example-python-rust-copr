@@ -81,7 +81,9 @@ for d in ${CARGO_REG_DIR}/*; do if [ -d $d ] && [ ! -L $d ]; then echo '{"files"
 for d in %{cargo_registry}/*; do if [ ! -d $d ]; then ln -s ${d} ${CARGO_REG_DIR}; fi; done
 
 %cargo_prep
+cat .cargo/config
 sed -i "s#%{cargo_registry}#${CARGO_REG_DIR}#g" .cargo/config
+cat .cargo/config
 
 %autosetup -p1 -n example-python-rust-copr-%{version}
 rm Cargo.lock
