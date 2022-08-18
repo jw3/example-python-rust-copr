@@ -22,7 +22,6 @@ BuildRequires: rust-cfg-if-devel
 BuildRequires: rust-funty-devel
 BuildRequires: rust-instant-devel
 BuildRequires: rust-lexical-core-devel
-BuildRequires: rust-libc-devel
 BuildRequires: rust-lock_api-devel
 BuildRequires: rust-once_cell-devel
 BuildRequires: rust-proc-macro-hack-devel
@@ -51,15 +50,14 @@ Source1: %{crates_source ariadne 0.1.5}
 Source2: %{crates_source arrayvec 0.5.2}
 Source3: %{crates_source bitvec 0.19.6}
 Source4: %{crates_source fapolicy-rules 0.4.1}
-Source7: %{crates_source memchr 2.3.4}
-Source8: %{crates_source nom 6.2.1}
-Source9: %{crates_source parking_lot 0.11.2}
-Source10: %{crates_source parking_lot_core 0.8.5}
-Source13: %{crates_source radium 0.5.3}
-Source14: %{crates_source redox_syscall 0.2.16}
-Source15: %{crates_source winapi 0.3.9}
-Source16: %{crates_source winapi-i686-pc-windows-gnu 0.4.0}
-Source17: %{crates_source winapi-x86_64-pc-windows-gnu 0.4.0}
+Source7: %{crates_source libc 0.2.132}
+Source8: %{crates_source memchr 2.3.4}
+Source9: %{crates_source nom 6.2.1}
+Source14: %{crates_source radium 0.5.3}
+Source15: %{crates_source redox_syscall 0.2.16}
+Source16: %{crates_source winapi 0.3.9}
+Source17: %{crates_source winapi-i686-pc-windows-gnu 0.4.0}
+Source18: %{crates_source winapi-x86_64-pc-windows-gnu 0.4.0}
 # Overridden to rpms due to Fedora version patching
 BuildRequires: rust-paste-devel
 BuildRequires: rust-indoc-devel
@@ -75,13 +73,15 @@ Summary:        %{summary}
 %description -n python3-rulec %_description
 
 %prep
-REG_DIR=%{cargo_registry}
-ls -al %{_datadir}
+REG_DIR=%{buildroot}%{cargo_registry}
 %{__mkdir} -p ${REG_DIR}
 for c in %{_sourcedir}/*.crate; do %{__tar} xzf ${c} -C ${REG_DIR}; done
 for d in ${REG_DIR}/*; do echo '{"files":{},"package":""}' > "$d/.cargo-checksum.json"; done
+for d in %{cargo_registry}/*; do ln -s ${d} ${REG_DIR}; done
 
 %cargo_prep
+sed -i "s#%{cargo_registry}#${REG_DIR}#g" .cargo/config
+
 %autosetup -p1 -n example-python-rust-copr-%{version}
 rm Cargo.lock
 
