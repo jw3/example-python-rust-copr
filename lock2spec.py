@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 rawhide_rust = "https://mirrors.kernel.org/fedora/development/rawhide/Everything/source/tree/Packages/r/"
 overridden_crates = ["paste", "indoc"]
-blacklisted_crates = ["paste-impl", "indoc-impl"]
+blacklisted_crates = ["paste-impl", "indoc-impl", "parking_lot", "parking_lot_core"]
 
 
 def required_packages():
