@@ -75,7 +75,8 @@ Summary:        %{summary}
 %description -n python3-rulec %_description
 
 %prep
-REG_DIR=%{buildroot}%{cargo_registry}
+REG_DIR=%{cargo_registry}
+ls -al %{_datadir}
 %{__mkdir} -p ${REG_DIR}
 for c in %{_sourcedir}/*.crate; do %{__tar} xzf ${c} -C ${REG_DIR}; done
 for d in ${REG_DIR}/*; do echo '{"files":{},"package":""}' > "$d/.cargo-checksum.json"; done
