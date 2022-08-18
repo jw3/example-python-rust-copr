@@ -77,7 +77,7 @@ CARGO_REG_DIR=%{buildroot}%{cargo_registry}
 %{__mkdir} -p ${CARGO_REG_DIR}
 for c in %{_sourcedir}/*.crate; do %{__tar} xzf ${c} -C ${CARGO_REG_DIR}; done
 ls -al ${CARGO_REG_DIR}
-for d in ${CARGO_REG_DIR}/*; do echo '{"files":{},"package":""}' > "$d/.cargo-checksum.json"; done
+for d in ${CARGO_REG_DIR}/*; do if [ -d $d ] && [ ! -L $d ]; then echo '{"files":{},"package":""}' > "$d/.cargo-checksum.json"; fi ; done
 for d in %{cargo_registry}/*; do ln -s ${d} ${CARGO_REG_DIR}; done
 
 %cargo_prep
