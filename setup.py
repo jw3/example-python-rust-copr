@@ -2,15 +2,14 @@ import os
 
 from setuptools import find_namespace_packages, setup
 from setuptools_rust import RustExtension
-
-import version
+from version import get_versions
 
 
 def get_version():
     if "VERSION" in os.environ:
         return os.getenv("VERSION")
     else:
-        meta = version.get_versions()
+        meta = get_versions()
         if "version" not in meta:
             raise RuntimeError("Could not parse version from Git")
         return meta["version"]
