@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 
-Name:           python-rulec
+Name:           python3-rulec
 Version:        0.4.0
 Release:        1%{?dist}
 Summary:        Rule compiler example project
@@ -67,10 +67,6 @@ BuildRequires: rust-indoc-devel
 
 %description %_description
 
-%package -n python3-rulec
-Summary:        %{summary}
-
-%description -n python3-rulec %_description
 
 %prep
 CARGO_REG_DIR=%{buildroot}%{cargo_registry}
