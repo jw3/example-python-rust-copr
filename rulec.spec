@@ -89,15 +89,16 @@ rm Cargo.lock
 
 %build
 export VERSION=%{version}
-%pyproject_wheel
+%py3_build
 
 %install
-%pyproject_install
-%pyproject_save_files rulec
+%py3_install
 
 %check
 
-%files -n python3-rulec -f %{pyproject_files}
+%files -n python3-rulec
+%{python3_sitearch}/rulec/
+
 
 %doc README.md
 

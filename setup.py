@@ -12,5 +12,4 @@ setup(
     rust_extensions=[
         RustExtension("rulec.rust")
     ],
-    include_package_data=True,
 )
