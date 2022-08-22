@@ -3,7 +3,7 @@ from setuptools_rust import RustExtension
 
 setup(
     name="rulec",
-    version="0.4.2",
+    version="0.4.3",
     packages=find_namespace_packages(
         include=["rulec", "rulec.*"],
     ),
