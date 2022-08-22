@@ -1,15 +1,9 @@
-import os
-
 from setuptools import find_namespace_packages, setup
 from setuptools_rust import RustExtension
 
-
-
-
-
 setup(
     name="rulec",
-    version="0.4.1",
+    version="0.4.2",
     packages=find_namespace_packages(
         include=["rulec", "rulec.*"],
     ),
