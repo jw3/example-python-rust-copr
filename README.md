@@ -59,8 +59,12 @@ The logic goes like this
   - https://pagure.io/fedora-rust/rust2rpm/blob/main/f/data
 - https://src.fedoraproject.org/rpms/pyproject-rpm-macros
 - https://mirrors.kernel.org/fedora/development/rawhide/Everything/source/tree/Packages/
-- 
-
+- Similar Python + Rust project
+  - https://github.com/pyca/cryptography
+  - https://src.fedoraproject.org/rpms/python-cryptography
+  - https://mirrors.kernel.org/fedora/development/rawhide/Everything/source/tree/Packages/p/python-cryptography-37.0.2-4.fc37.src.rpm
+- https://doc.rust-lang.org/rustc/command-line-arguments.html#--remap-path-prefix-remap-source-names-in-output
+- https://github.com/rpm-software-management/rpm/blob/master/scripts/check-buildroot
 
 ## License
 
