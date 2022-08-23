@@ -78,9 +78,7 @@ for d in %{cargo_registry}/*; do ln -sf ${d} ${CARGO_REG_DIR}; done
 
 %cargo_prep
 cat .cargo/config
-# flip
 sed -i "s#%{cargo_registry}#${CARGO_REG_DIR}#g" .cargo/config
-# flop
 sed -i "/\[build\]/a rustflags = [\"--remap-path-prefix\", \"${CARGO_REG_DIR}=%{cargo_registry}\"]" .cargo/config
 cat .cargo/config
 
@@ -91,16 +89,16 @@ rm Cargo.lock
 %pyproject_buildrequires
 
 %build
-VERSION=%{app_version} %{python3} setup.py bdist_wheel
+export VERSION=%{version}
+%pyproject_wheel
 
 %install
-%{python3} -m pip install --no-deps --no-input -v --target %{buildroot}%{python3_sitearch} dist/*.whl
+%pyproject_install
+%pyproject_save_files rulec
 
 %check
 
-%files -n python3-rulec
-%{python3_sitearch}/rulec*
-
+%files -n python3-rulec -f %{pyproject_files}
 
 %doc README.md
 
