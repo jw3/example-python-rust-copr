@@ -81,10 +81,9 @@ cat .cargo/config
 sed -i "s#%{cargo_registry}#${CARGO_REG_DIR}#g" .cargo/config
 sed -i "/\[build\]/a rustflags = [\"--remap-path-prefix\", \"${CARGO_REG_DIR}=%{cargo_registry}\"]" .cargo/config
 
-echo %{version} > VERSION
-
 %autosetup -p1 -n example-python-rust-copr-%{version}
 rm Cargo.lock
+echo %{version} > VERSION
 
 %generate_buildrequires
 %pyproject_buildrequires
