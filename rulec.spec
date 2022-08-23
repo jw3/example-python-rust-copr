@@ -69,20 +69,33 @@ BuildRequires: rust-indoc-devel
 
 
 %prep
+# create a registry in BUILDROOT that is writable in the prep phase
+# is this legal??? i doubt it.
 CARGO_REG_DIR=%{buildroot}%{cargo_registry}
 %{__mkdir} -p ${CARGO_REG_DIR}
+
+# extract the SourceX crates into the writable registry
 for c in %{_sourcedir}/*.crate; do %{__tar} xzf ${c} -C ${CARGO_REG_DIR}; done
-ls -al ${CARGO_REG_DIR}
+
+# appears we must init the checksum file for the crate source downloads
 for d in ${CARGO_REG_DIR}/*; do if [ -d $d ] && [ ! -L $d ]; then echo '{"files":{},"package":""}' > "$d/.cargo-checksum.json"; fi ; done
+
+# link the original registry contents so that the official packages are available too
 for d in %{cargo_registry}/*; do ln -sf ${d} ${CARGO_REG_DIR}; done
 
+# use the rust2rpm cargo_prep
 %cargo_prep
-cat .cargo/config
+
+# now we need to tweak the registry location to BUILDROOT before building
 sed -i "s#%{cargo_registry}#${CARGO_REG_DIR}#g" .cargo/config
+# we also must fix the shared library after the build by stripping the BUILDROOT
 sed -i "/\[build\]/a rustflags = [\"--remap-path-prefix\", \"${CARGO_REG_DIR}=%{cargo_registry}\"]" .cargo/config
 
 %autosetup -p1 -n example-python-rust-copr-%{version}
+# get rid of the cargo lock, we will use what is available in the registry
 rm Cargo.lock
+
+# for setuptools, set the version of the library to the rpm version
 echo %{version} > VERSION
 
 %generate_buildrequires
