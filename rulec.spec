@@ -2,7 +2,7 @@
 
 Name:           python3-rulec
 Version:        0.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Rule compiler example project
 
 License:        GPLv3
