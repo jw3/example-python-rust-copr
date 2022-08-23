@@ -6,15 +6,19 @@ import os
 def get_version():
     if "VERSION" in os.environ:
         return os.getenv("VERSION")
+    if os.path.exists("VERSION"):
+        with open("VERSION", "r") as version:
+            v = version.readline().strip()
+            if len(v):
+                return v
     try:
-        import importlib
-        version = importlib.import_module("version")
-        meta = version.get_versions()
-        if "version" not in meta:
-            raise RuntimeError("Could not parse version from Git")
-        return meta["version"]
+        from version import get_versions
     except Exception:
-        raise RuntimeError("Was not able to detect Python rulec version")
+        raise RuntimeError("Unable to import git describe version generator")
+    meta = get_versions()
+    if "version" not in meta:
+        raise RuntimeError("Could not parse version from Git")
+    return meta["version"]
 
 
 setup(
