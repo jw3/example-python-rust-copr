@@ -7,8 +7,9 @@ def get_version():
     if "VERSION" in os.environ:
         return os.getenv("VERSION")
     try:
-        from version import get_versions
-        meta = get_versions()
+        import importlib
+        version = importlib.import_module("version")
+        meta = version.get_versions()
         if "version" not in meta:
             raise RuntimeError("Could not parse version from Git")
         return meta["version"]
