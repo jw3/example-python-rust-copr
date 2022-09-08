@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+
+import shutil
+
 import toml
 import requests as req
 from bs4 import BeautifulSoup
@@ -40,11 +44,13 @@ def available_packages():
 if __name__ == '__main__':
     rpms = {}
     crates = {}
+    unvendor = []
     available = available_packages()
     for p, v in required_packages().items():
         if p in available:
             if v == available[p]:
                 rpms[p] = f"rust-{p}"
+                unvendor.append(p)
             else:
                 print("rpm version didnt match")
                 crates[p] = f"%{{crates_source {p} {v}}}"
@@ -57,12 +63,18 @@ if __name__ == '__main__':
     for r in rpms.values():
         print(f"BuildRequires: {r}-devel")
 
+    if overridden_crates:
+        print("# Overridden to rpms due to Fedora version patching")
+        for r in overridden_crates:
+            print(f"BuildRequires: rust-{r}-devel")
+            unvendor.append(r)
+
+    # if not vendoring
     excluded_crates = overridden_crates + blacklisted_crates
     for i, (c, v) in enumerate(crates.items()):
         if c not in excluded_crates:
             print(f"Source{i + 1 }: {v}")
 
-    if overridden_crates:
-        print("# Overridden to rpms due to Fedora version patching")
-        for r in overridden_crates:
-            print(f"BuildRequires: rust-{r}-devel")
+    # if vendoring
+    for c in unvendor:
+        shutil.rmtree(f"vendor/{c}", ignore_errors=True)

@@ -4,3 +4,6 @@ target
 *.egg-info
 *.so
 **.pyc
+
+*.tar.gz
+vendor
