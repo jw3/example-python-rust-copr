@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
 
-cd /root/rpmbuild/SOURCES
-spectool -gf ../SPECS/rulec.spec
+# ava
+
+spec_file="rulec.spec"
+
+if [[ "$ONLINE" -eq 1 ]]; then
+  cd /root/rpmbuild/SOURCES
+  spectool -gf "../SPECS/$spec_file"
+  cd /root/rpmbuild/SPECS
+  dnf builddep "$spec_file" -y
+fi
+
 cd /root/rpmbuild/SPECS
-dnf builddep rulec.spec -y
-rpmbuild -ba rulec.spec
+rpmbuild -ba "$spec_file"

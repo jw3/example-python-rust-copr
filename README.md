@@ -47,8 +47,9 @@ The logic goes like this
 
 ## Testing build from Podman
 
-1. `podman build --security-opt seccomp=unconfined -t rpm-test:rawhide .`
-2. `podman run --rm -it --security-opt seccomp=unconfined rpm-test:rawhide`
+1. `vendor.sh`
+2. `podman build --security-opt seccomp=unconfined -t rpm-test:rawhide .`
+3. `podman run --rm -it rpm-test:rawhide`
 
 ## General References
 - https://whamcloud.github.io/Online-Help/docs/Contributor_Docs/cd_Building_Rust_RPMs.html
