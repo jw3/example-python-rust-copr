@@ -1,0 +1,18 @@
+FROM registry.access.redhat.com/ubi8/ubi:8.6 AS build-stage
+
+RUN dnf module install -y python36 rust-toolset
+RUN dnf install -y rpm-build nano
+
+WORKDIR /root/rpmbuild
+
+RUN mkdir -p {BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
+COPY *.spec        SPECS/
+
+RUN dnf builddep SPECS/rulec.vendored.spec -y
+
+COPY crates.tar.gz SOURCES/
+COPY rulec.tar.gz  SOURCES/
+COPY build.sh      ./
+
+WORKDIR /root/rpmbuild
+
