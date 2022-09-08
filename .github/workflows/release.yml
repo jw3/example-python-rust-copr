@@ -44,9 +44,7 @@ jobs:
 
       - name: Vendor
         run: |
-          cargo check
-          git archive HEAD -o rulec.tar.gz --prefix=example-python-rust-copr
-          ./vendor.sh
+          make -f .copr/Makefile vendor
 
       - name: Export files
         run: |
