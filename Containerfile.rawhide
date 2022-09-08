@@ -5,7 +5,7 @@ RUN dnf install -y rpm-build rpmdevtools dnf-plugins-core python3-pip nano rust-
 WORKDIR /root/rpmbuild
 
 RUN mkdir -p {BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
-COPY rulec.rawhide.spec        SPECS/rulec.spec
+COPY rulec.spec        SPECS/
 
 RUN dnf builddep SPECS/rulec.spec -y
 
