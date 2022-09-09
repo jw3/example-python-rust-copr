@@ -5,9 +5,8 @@ clean:
 	rm crates.tar.gz
 
 dnf:
-	dnf install -y git rust-packaging python3-devel python3-pip openssl-devel
+	dnf install -y git rust-packaging python3-devel python3-pip openssl-devel python-toml python-beautifulsoup4 python-requests
 	cargo install cargo-vendor-filterer
-	python3 -m pip install toml beautifulsoup4 requests
 
 vendor:
 	cargo check

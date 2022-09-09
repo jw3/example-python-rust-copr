@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Dependencies
         run: |
-          sudo dnf install -y git rpm rpmdevtools openssl-devel
+          sudo dnf install -y git rpm rpmdevtools
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -38,10 +38,6 @@ jobs:
         id: tag_name
         if: startsWith(github.ref, 'refs/tags/v')
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d/ -f3)
-
-      - name: Pip dependencies
-        run: |
-          pip3 install --no-input -r lock2spec.requirements.txt
 
       - name: Rust dependencies
         run: |
