@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Install git
         run: |
-          sudo apt install -y git
+          sudo apt install -y git rpm
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -44,7 +44,7 @@ jobs:
 
       - name: Vendor
         run: |
-          make -f .copr/Makefile vendor
+          make -f .copr/Makefile srpm outdir=/tmp/archives spec=rulec.spec
 
       - name: Export files
         run: |
