@@ -1,18 +1,16 @@
 %global debug_package %{nil}
+%global srcname rulec
+%global sum     File Access rule compiler with validation
 
-Name:           python3-rulec
+Name:           python-%{srcname}
 Version:        0.6.0
 Release:        1%{?dist}
-Summary:        Rule compiler example project
+Summary:        %{sum}
 
 License:        GPLv3
-URL:            https://github.com/jw3/example-python-rust-copr
-# Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
-# Source1:        %{url}/releases/download/v%{version}/crates.tar.gz
-Source0:        rulec.tar.gz
+URL:            https://github.com/jw3/python-rulec
+Source0:        %{srcname}.tar.gz
 Source1:        crates.tar.gz
-
-Requires: python3-configargparse
 
 BuildArch:      x86_64
 BuildRequires:  python3-devel
@@ -55,16 +53,23 @@ BuildRequires: rust-yansi-devel
 BuildRequires: rust-paste-devel
 BuildRequires: rust-indoc-devel
 
-%global _description %{expand:
-                           Rule compiler for fapolicyd.}
+%description
+%{sum}.
 
-%description %_description
+%package -n python%{python3_pkgversion}-%{srcname}
 
+Summary:  %{sum}
+Requires: python%{python3_pkgversion}-configargparse
+
+%description -n python%{python3_pkgversion}-%{srcname}
+%{sum}.
 
 %prep
-# the registry location is not writable, so we cant extract the vendored crates
-# so link the official package registry into the source dir (aka our new registry)
-# bit of a hack, but more elegant that previous attempts ;)
+# this is a bit of a hack, but more elegant than some previous attempts ;)
+# Problem:  the registry location is not writable, blocking extraction of vendored crates
+# Solution: link the contents of the official package registry into a new registry
+#           and then extract the vendored crates tarball into the new registry
+#           after a little mapping and unmapping of that location while building, Success
 CARGO_REG_DIR=%{_sourcedir}/registry
 %{__mkdir} -p ${CARGO_REG_DIR}
 for d in %{cargo_registry}/*; do ln -sf ${d} ${CARGO_REG_DIR}; done
@@ -78,7 +83,7 @@ sed -i "s#%{cargo_registry}#${CARGO_REG_DIR}#g" .cargo/config
 # have to undo the tweak in the shared library, otherwise rpm check will balk
 sed -i "/\[build\]/a rustflags = [\"--remap-path-prefix\", \"${CARGO_REG_DIR}=%{cargo_registry}\"]" .cargo/config
 
-%autosetup -p0 -n python3-rulec
+%autosetup -p0 -n python3-%{srcname}
 
 # get rid of the cargo lock, we will use whatever is available in the registry
 rm Cargo.lock
@@ -94,11 +99,11 @@ echo %{version} > VERSION
 
 %install
 %pyproject_install
-%pyproject_save_files rulec
+%pyproject_save_files %{srcname}
 
 %check
 
-%files -n python3-rulec -f %{pyproject_files}
+%files -n python3-%{srcname} -f %{pyproject_files}
 
 %doc README.md
 

@@ -1,9 +1,11 @@
-rulec
+python-rulec
 ===
 
 [![Copr build status](https://copr.fedorainfracloud.org/coprs/jwass3/example-rust-python/package/python-rulec/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/jwass3/example-rust-python/package/python-rulec/)
 
-[fapolicyd](https://github.com/linux-application-whitelisting/fapolicyd) rule compiler using the [`fapolicy-rules`](https://crates.io/crates/fapolicy-rules) crate from [fapolicy-analyzer](https://github.com/ctc-oss/fapolicy-analyzer)
+[File Access Policy](https://github.com/linux-application-whitelisting/fapolicyd) rule compiler.
+
+Like fagenrules, but with validation provided by the [`fapolicy-rules`](https://crates.io/crates/fapolicy-rules) crate from [fapolicy-analyzer](https://github.com/ctc-oss/fapolicy-analyzer)
 
 This is mostly a toy project for experimenting with building Python+Rust RPMs.
 
