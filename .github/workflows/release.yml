@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Dependencies
         run: |
-          sudo dnf install -y git rpm rpmdevtools
+          sudo dnf install -y git rpm rpmdevtools gcc
 
       - name: Set up Python
         uses: actions/setup-python@v2
