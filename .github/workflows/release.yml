@@ -8,6 +8,7 @@ name: Release
 jobs:
   release:
     runs-on: ubuntu-latest
+    container: fedora:rawhide
     name: Build
     steps:
       - name: Apt dependencies
