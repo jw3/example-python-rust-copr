@@ -43,6 +43,11 @@ jobs:
         run: |
           cargo install cargo-vendor-filterer
 
+      # allow the git archive command to run within the repo
+      - name: Allow archive
+        run: |
+          git config --global --add safe.directory $GITHUB_WORKSPACE
+
       - name: Build SRPM
         run: |
           make -f .copr/Makefile srpm outdir=/tmp/archives spec=rulec.spec
