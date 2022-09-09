@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build
     steps:
-      - name: Install git
+      - name: Apt dependencies
         run: |
           sudo apt install -y git rpm
 
@@ -36,19 +36,22 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d/ -f3)
 
-      - name: Dependencies
+      - name: Pip dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r lock2spec.requirements.txt
+
+      - name: Rust dependencies
+        run: |
           cargo install cargo-vendor-filterer
 
-      - name: Vendor
+      - name: Build SRPM
         run: |
           make -f .copr/Makefile srpm outdir=/tmp/archives spec=rulec.spec
 
-      - name: Export files
+      - name: Archive
         run: |
-          mkdir /tmp/archives
+          mkdir -p /tmp/archives
           mv rulec.tar.gz /tmp/archives
           mv crates.tar.gz /tmp/archives
 
