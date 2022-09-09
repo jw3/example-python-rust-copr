@@ -68,7 +68,7 @@ BuildRequires: rust-indoc-devel
 CARGO_REG_DIR=%{_sourcedir}/registry
 %{__mkdir} -p ${CARGO_REG_DIR}
 for d in %{cargo_registry}/*; do ln -sf ${d} ${CARGO_REG_DIR}; done
-%{__tar} xzf %{_sourcedir}/crates.tar.gz -C ${CARGO_REG_DIR}
+%{__tar} xvzf %{_sourcedir}/crates.tar.gz -C ${CARGO_REG_DIR}
 
 # use the rust2rpm cargo_prep to update our cargo conf
 %cargo_prep
