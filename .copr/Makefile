@@ -7,7 +7,7 @@ clean:
 dnf:
 	dnf install -y git rust-packaging python3-devel openssl-devel
 	cargo install cargo-vendor-filterer
-	python -m pip install toml beautifulsoup4 requests
+	python3 -m pip install toml beautifulsoup4 requests
 
 vendor:
 	cargo check
