@@ -11,9 +11,9 @@ jobs:
     container: fedora:rawhide
     name: Build
     steps:
-      - name: Apt dependencies
+      - name: Dependencies
         run: |
-          sudo apt install -y git rpm
+          sudo dnf install -y git rpm rpmdevtools
 
       - name: Set up Python
         uses: actions/setup-python@v2
