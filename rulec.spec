@@ -78,7 +78,7 @@ sed -i "s#%{cargo_registry}#${CARGO_REG_DIR}#g" .cargo/config
 # have to undo the tweak in the shared library, otherwise rpm check will balk
 sed -i "/\[build\]/a rustflags = [\"--remap-path-prefix\", \"${CARGO_REG_DIR}=%{cargo_registry}\"]" .cargo/config
 
-%autosetup -p0 -n example-python-rust-copr-%{version}
+%autosetup -p0 -n python3-rulec
 
 # get rid of the cargo lock, we will use whatever is available in the registry
 rm Cargo.lock

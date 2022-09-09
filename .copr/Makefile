@@ -7,7 +7,7 @@ clean:
 vendor:
 	dnf install -y git rust-packaging python3-devel && python -m pip install -r lock2spec.requirements.txt || true
 	cargo check
-	git archive HEAD -o rulec.tar.gz --prefix=example-python-rust-copr
+	git archive HEAD -o rulec.tar.gz --prefix=python3-rulec/
 	./vendor.sh
 
 srpm: vendor
