@@ -1,16 +1,20 @@
-.PHONY : clean vendor srpm
+.PHONY : clean dnf vendor srpm
 
 clean:
 	rm rulec.tar.gz
 	rm crates.tar.gz
 
+dnf:
+	dnf install -y git rust-packaging python3-devel
+	cargo install cargo-vendor-filterer
+	python -m pip install toml beautifulsoup4 requests
+
 vendor:
-	dnf install -y git rust-packaging python3-devel && python -m pip install -r lock2spec.requirements.txt || true
 	cargo check
 	git archive HEAD -o rulec.tar.gz --prefix=python3-rulec/
 	./vendor.sh
 
-srpm: vendor
+srpm: dnf vendor
 	mkdir -p /tmp/rpmbuild/SOURCES
 	cp crates.tar.gz rulec.tar.gz /tmp/rpmbuild/SOURCES
 	rpmbuild -bs -D "_topdir /tmp/rpmbuild" \$(spec)
