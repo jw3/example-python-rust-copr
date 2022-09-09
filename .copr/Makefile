@@ -5,7 +5,7 @@ clean:
 	rm crates.tar.gz
 
 vendor:
-	dnf install -y rust-packaging python3-devel && python -m pip install -r lock2spec.requirements.txt || true
+	dnf install -y git rust-packaging python3-devel && python -m pip install -r lock2spec.requirements.txt || true
 	cargo check
 	git archive HEAD -o rulec.tar.gz --prefix=example-python-rust-copr
 	./vendor.sh
